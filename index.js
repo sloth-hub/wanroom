@@ -20,7 +20,13 @@ function init() {
         const itemListWrap = document.createElement("div");
         itemListWrap.classList.add("item-list-wrap");
         itemListWrap.innerHTML = `
-        <div class="tab-toggle"><span>▼</span></div>
+        <div class="tab-toggle">▼</li></div>
+        <ul class="item-tab">
+        <li class="item-tab category">background</li>
+        <li class="item-tab category">wall</li>
+        <li class="item-tab category">floor</li>
+        <li class="item-tab category">furniture</li>
+        </ul>
         <ul class="item-list">
         <li class="list-item">🍎</li>
         <li class="list-item">🥨</li>
@@ -34,10 +40,9 @@ function init() {
         <li class="list-item">🍉</li>
         </ul>`;
         container.appendChild(itemListWrap);
-        const itemList = document.querySelector(".item-list");
         clickedItemList(itemListWrap);
         onClickedItem();
-        onClickedTab(itemList);
+        onClickedTab(itemListWrap);
     });
 
 }
@@ -53,9 +58,18 @@ function clickedItemList(itemListWrap) {
     });
 }
 
-function onClickedTab(itemList) {
-    document.querySelector(".tab-toggle span").addEventListener("click", ()=> {
+function onClickedTab(itemListWrap) {
+    const tabToggle = itemListWrap.querySelector(".tab-toggle");
+    tabToggle.addEventListener("click", ()=> {
+        const itemList = itemListWrap.querySelector(".item-list");
+        const itemTab = itemListWrap.querySelector(".item-tab");
         itemList.classList.toggle("hide");
+        itemTab.classList.toggle("hide");
+        if (tabToggle.innerText === "▼") {
+            tabToggle.innerText = "▲";
+        } else {
+            tabToggle.innerText = "▼";
+        }
     });
 }
 
