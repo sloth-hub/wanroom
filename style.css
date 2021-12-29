@@ -25,12 +25,12 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #fff;
-} 
+}
 
 .room {
     width: 100%;
     height: 100%;
-    background: center 30px no-repeat url("./room.png");
+    background: center 30px no-repeat url("./images/room.png");
 }
 
 .item-list-wrap {
@@ -42,26 +42,33 @@ body {
     position: absolute;
     bottom: 0;
 }
-.tab-toggle {
-    width: 30px;
-    height: 30px;
+
+.item-tab {
+    display: flex;
+    justify-content: space-between;
     background-color: #ddd;
-    border: 1px solid #000;
 }
 
-.tab-toggle span {
-    text-align: center;
+.item-tab li {
     width: 100%;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.tab-toggle {
+    border: 1px solid #000;
+    width: 50px;
+    text-align: center;
     font-size: 20px;
     cursor: pointer;
 }
 
-.item-list, .tab-toggle {
-    box-sizing: border-box;
-    display: flex;
-}
-
 .item-list {
+    display: flex;
+    box-sizing: border-box;
     height: 300px;
     flex-wrap: wrap;
     list-style: none;
@@ -95,7 +102,7 @@ body {
 }
 
 .hide {
-   display: none;
+    display: none;
 }
 
 .room .hide {
