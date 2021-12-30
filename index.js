@@ -22,10 +22,10 @@ function init() {
         itemListWrap.innerHTML = `
         <div class="tab-toggle">▼</li></div>
         <ul class="item-tab">
-        <li class="item-tab category">background</li>
+        <li class="item-tab category">furniture</li>
         <li class="item-tab category">wall</li>
         <li class="item-tab category">floor</li>
-        <li class="item-tab category">furniture</li>
+        <li class="item-tab category">background</li>
         </ul>
         <ul class="item-list">
         <li class="list-item">🍎</li>
@@ -60,9 +60,10 @@ function clickedItemList(itemListWrap) {
 
 function onClickedTab(itemListWrap) {
     const tabToggle = itemListWrap.querySelector(".tab-toggle");
-    tabToggle.addEventListener("click", ()=> {
-        const itemList = itemListWrap.querySelector(".item-list");
-        const itemTab = itemListWrap.querySelector(".item-tab");
+    const itemList = itemListWrap.querySelector(".item-list");
+    const itemTab = itemListWrap.querySelector(".item-tab");
+
+    tabToggle.addEventListener("click", () => {
         itemList.classList.toggle("hide");
         itemTab.classList.toggle("hide");
         if (tabToggle.innerText === "▼") {
@@ -71,6 +72,18 @@ function onClickedTab(itemListWrap) {
             tabToggle.innerText = "▼";
         }
     });
+
+    itemTab.addEventListener("click", ({ target }) => {
+        if (target.className === "item-tab category") {
+            if (target.innerText === "background") {
+                axios.get("test.json").then(({data}) => {
+                    let backgrounds = data.background;
+                    console.log(backgrounds);
+                }).catch(error => console.log(error));
+            }
+        }
+    });
+
 }
 
 function onClickedItem() {
