@@ -6,5 +6,11 @@
         "#c29de0",
         "#9daee0",
         "#9dcce0"
+    ],
+    "chair": [
+        {
+            "name": "pill",
+            "img": "/images/pill.png"
+        }
     ]
 }

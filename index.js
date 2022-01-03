@@ -14,7 +14,7 @@ let yOffset = 0;
 
 init();
 function init() {
-    startbtn.addEventListener("click", ({ target }) => {
+    startbtn.addEventListener("click", async ({ target }) => {
         display.removeChild(target);
         room.classList.remove("hide");
         const itemListWrap = document.createElement("div");
@@ -22,32 +22,26 @@ function init() {
         itemListWrap.innerHTML = `
         <div class="tab-toggle">▼</li></div>
         <ul class="item-tab">
-        <li class="item-tab category">furniture</li>
+        <li class="item-tab category">chair</li>
+        <li class="item-tab category">desk</li>
+        <li class="item-tab category"></li>
+        <li class="item-tab category">chair</li>
         <li class="item-tab category">wall</li>
         <li class="item-tab category">floor</li>
         <li class="item-tab category">background</li>
         </ul>
         <ul class="item-list">
-        <li class="list-item">🍎</li>
-        <li class="list-item">🥨</li>
-        <li class="list-item">🍌</li>
-        <li class="list-item">🍞</li>
-        <li class="list-item">🍳</li>
-        <li class="list-item">🍇</li>
-        <li class="list-item">🍑</li>
-        <li class="list-item">😍</li>
-        <li class="list-item">👍</li>
-        <li class="list-item">🍉</li>
         </ul>`;
+        const itemData = await axios.get("test.json")
+            .then(({ data }) => data);
         container.appendChild(itemListWrap);
-        clickedItemList(itemListWrap);
         onClickedItem();
-        onClickedTab(itemListWrap);
+        onClickedTab(itemListWrap, itemData);
     });
 
 }
 
-function clickedItemList(itemListWrap) {
+function clickedItemList(itemListWrap, categoryName) {
     itemListWrap.addEventListener("click", ({ target }) => {
         if (target.className === "list-item") {
             let span = document.createElement("span");
@@ -55,10 +49,15 @@ function clickedItemList(itemListWrap) {
             span.appendChild(document.createTextNode(target.innerText));
             room.appendChild(span);
         }
+        if(categoryName === "background") {
+            room.style.backgroundColor = target.style.backgroundColor;
+        } else if (categoryName === "chair") {
+            console.log(categoryName);
+        }
     });
 }
 
-function onClickedTab(itemListWrap) {
+function onClickedTab(itemListWrap, itemData) {
     const tabToggle = itemListWrap.querySelector(".tab-toggle");
     const itemList = itemListWrap.querySelector(".item-list");
     const itemTab = itemListWrap.querySelector(".item-tab");
@@ -75,25 +74,26 @@ function onClickedTab(itemListWrap) {
 
     itemTab.addEventListener("click", ({ target }) => {
         if (target.className === "item-tab category") {
-            if (target.innerText === "background") {
-                axios.get("test.json").then(({data}) => {
-                    let backgrounds = data.background;
-                    console.log(backgrounds);
-                }).catch(error => console.log(error));
-            }
+            let categoryName = target.innerText;
+            itemData[categoryName].map((e) => {
+                let list = document.createElement("li");
+                list.classList.add(categoryName);
+                list.style.backgroundColor = e;
+                itemList.appendChild(list);
+            });
+            clickedItemList(itemListWrap, categoryName);
         }
     });
-
 }
 
 function onClickedItem() {
-    room.addEventListener("touchstart", dragStart, false);
-    room.addEventListener("touched", dragEnd, false);
-    room.addEventListener("touchmove", drag, false);
+    room.addEventListener("touchstart", dragStart, { passive: false });
+    room.addEventListener("touched", dragEnd, { passive: false });
+    room.addEventListener("touchmove", drag, { passive: false });
 
-    room.addEventListener("mousedown", dragStart, false);
-    room.addEventListener("mouseup", dragEnd, false);
-    room.addEventListener("mousemove", drag, false);
+    room.addEventListener("mousedown", dragStart, { passive: false });
+    room.addEventListener("mouseup", dragEnd, { passive: false });
+    room.addEventListener("mousemove", drag, { passive: false });
 }
 
 function dragStart(e) {
