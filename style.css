@@ -11,6 +11,10 @@ body {
     background-color: #000;
 }
 
+img {
+    -webkit-user-drag: none;
+}
+
 .container {
     width: 648px;
     height: 100%;
@@ -75,7 +79,7 @@ body {
     background-color: #fff;
 }
 
-.item-list li {
+.list-item {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,8 +92,11 @@ body {
     cursor: default;
 }
 
+.list-item .item-img {
+
+}
+
 .item {
-    font-size: 40px;
     cursor: default;
     position: absolute;
 }
