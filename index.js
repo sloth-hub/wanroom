@@ -13,6 +13,7 @@ let xOffset = 0;
 let yOffset = 0;
 
 init();
+
 function init() {
     startbtn.addEventListener("click", async ({ target }) => {
         display.removeChild(target);
@@ -22,10 +23,10 @@ function init() {
         itemListWrap.innerHTML = `
         <div class="tab-toggle">▼</li></div>
         <ul class="item-tab">
-        <li class="item-tab category">chair</li>
-        <li class="item-tab category">desk</li>
-        <li class="item-tab category"></li>
-        <li class="item-tab category">chair</li>
+        <li class="item-tab category">comfort</li>
+        <li class="item-tab category">table</li>
+        <li class="item-tab category">storage</li>
+        <li class="item-tab category">decorations</li>
         <li class="item-tab category">wall</li>
         <li class="item-tab category">floor</li>
         <li class="item-tab category">background</li>
@@ -43,16 +44,13 @@ function init() {
 
 function clickedItemList(itemListWrap, categoryName) {
     itemListWrap.addEventListener("click", ({ target }) => {
-        if (target.className === "list-item") {
-            let span = document.createElement("span");
-            span.classList.add("item");
-            span.appendChild(document.createTextNode(target.innerText));
-            room.appendChild(span);
-        }
-        if(categoryName === "background") {
+        if (categoryName === "background") {
             room.style.backgroundColor = target.style.backgroundColor;
-        } else if (categoryName === "chair") {
-            console.log(categoryName);
+        } else if (target.className === "item-img") {
+            let item = document.createElement("img");
+            item.classList.add("item");
+            item.src = target.src;
+            room.appendChild(item);
         }
     });
 }
@@ -75,15 +73,24 @@ function onClickedTab(itemListWrap, itemData) {
     itemTab.addEventListener("click", ({ target }) => {
         if (target.className === "item-tab category") {
             let categoryName = target.innerText;
-            itemData[categoryName].map((e) => {
-                let list = document.createElement("li");
-                list.classList.add(categoryName);
-                list.style.backgroundColor = e;
-                itemList.appendChild(list);
+            itemList.innerHTML = "";
+            itemData[categoryName].forEach((e) => {
+                let template = itemListTemp({ categoryName, category: e });
+                itemList.innerHTML += template;
             });
             clickedItemList(itemListWrap, categoryName);
         }
     });
+}
+
+function itemListTemp(arguments) {
+    if (arguments.categoryName === "background") {
+        return `
+        <li class="list-item ${arguments.categoryName}" style="background-color: ${arguments.category.colorCode}"></li>
+        `;
+    } else {
+        return `<li class="list-item ${arguments.categoryName}"><img class="item-img" src="${arguments.category.img}"></li>`;
+    }
 }
 
 function onClickedItem() {

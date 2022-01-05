@@ -1,16 +1,64 @@
 {
     "background": [
-        "#ccc",
-        "#e09d9d",
-        "#e09dc5",
-        "#c29de0",
-        "#9daee0",
-        "#9dcce0"
-    ],
-    "chair": [
         {
-            "name": "pill",
-            "img": "/images/pill.png"
+            "colorName": "gray",
+            "colorCode": "#ccc"
+        },
+        {
+            "colorName": "light red",
+            "colorCode": "#e09d9d"
+        },
+        {
+            "colorName": "pink",
+            "colorCode": "#e09dc5"
+        },
+        {
+            "colorName": "light blue",
+            "colorCode": "#9daee0"
+        },
+        {
+            "colorName": "right skyblue",
+            "colorCode": "#9dcce0"
+        },
+        {
+            "colorName": "light violet",
+            "colorCode": "#c29de0"
+        }
+    ],
+    "comfort": [
+        {
+            "name": "can",
+            "img": "/images/can.png"
+        }
+    ],
+    "table": [
+        {
+            "name": "can",
+            "img": "/images/can.png"
+        }
+    ],
+    "storage": [
+        {
+            "name": "can",
+            "img": "/images/can.png"
+        }
+    ],
+    "decorations": [
+        {
+            "name": "can",
+            "img": "/images/can.png"
+        }
+    ],
+    "wall": [
+        {
+            "name": "can",
+            "img": "/images/can.png"
+        }
+    ],
+    "floor": [
+        {
+            "name": "can",
+            "img": "/images/can.png"
         }
     ]
 }
