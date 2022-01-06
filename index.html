@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,15 +8,16 @@
     <title>WANROOM</title>
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body onselectstart="return false">
     <div class="container">
-        <div class="display">
+        <canvas id="display" width="648"></canvas>
+        <div class="start-background">
             <button class="start-btn">START</button>
-            <div class="room hide">
-            </div>
         </div>
     </div>
     <script src="./index.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
+
 </html>

@@ -1,7 +1,7 @@
-const startbtn = document.querySelector('.start-btn');
-const container = document.querySelector('.container');
-const display = document.querySelector(".display");
-const room = document.querySelector(".room");
+const canvas = document.getElementById("display")
+canvas.height = window.innerHeight;
+const display = canvas.getContext("2d");
+const start = document.querySelector(".start-btn");
 
 let active = false;
 let activeItem = null;
@@ -15,37 +15,24 @@ let yOffset = 0;
 init();
 
 function init() {
-    startbtn.addEventListener("click", async ({ target }) => {
-        display.removeChild(target);
-        room.classList.remove("hide");
-        const itemListWrap = document.createElement("div");
-        itemListWrap.classList.add("item-list-wrap");
-        itemListWrap.innerHTML = `
-        <div class="tab-toggle">▼</li></div>
-        <ul class="item-tab">
-        <li class="item-tab category">comfort</li>
-        <li class="item-tab category">table</li>
-        <li class="item-tab category">storage</li>
-        <li class="item-tab category">decorations</li>
-        <li class="item-tab category">wall</li>
-        <li class="item-tab category">floor</li>
-        <li class="item-tab category">background</li>
-        </ul>
-        <ul class="item-list">
-        </ul>`;
-        const itemData = await axios.get("test.json")
-            .then(({ data }) => data);
-        container.appendChild(itemListWrap);
-        onClickedItem();
-        onClickedTab(itemListWrap, itemData);
-    });
+    const container = document.querySelector(".container");
+    const roomImg = new Image;
+    roomImg.src = "./images/room.png";
 
+    start.addEventListener("click", ({ target }) => {
+        if (target.className === "start-btn") {
+            container.removeChild(target.closest(".start-background"));
+        }
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        display.drawImage(roomImg, (canvas.width / 2 - roomImg.width / 2), (canvas.height / 2 - roomImg.height / 2), 600, 600);
+    });
 }
 
 function clickedItemList(itemListWrap, categoryName) {
     itemListWrap.addEventListener("click", ({ target }) => {
         if (categoryName === "background") {
-            room.style.backgroundColor = target.style.backgroundColor;
+            display.style.backgroundColor = target.style.backgroundColor;
         } else if (target.className === "item-img") {
             let item = document.createElement("img");
             item.classList.add("item");
