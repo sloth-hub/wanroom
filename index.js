@@ -1,6 +1,5 @@
-const canvas = document.getElementById("display")
-canvas.height = window.innerHeight;
-const display = canvas.getContext("2d");
+const canvas = document.getElementById("display");
+const context = canvas.getContext("2d");
 const start = document.querySelector(".start-btn");
 
 let active = false;
@@ -16,17 +15,34 @@ init();
 
 function init() {
     const container = document.querySelector(".container");
+    canvas.width = "648";
+    canvas.height = container.offsetHeight;
     const roomImg = new Image;
     roomImg.src = "./images/room.png";
 
     start.addEventListener("click", ({ target }) => {
         if (target.className === "start-btn") {
-            container.removeChild(target.closest(".start-background"));
+            container.removeChild(target);
+            console.log(canvas.width, canvas.height);
+            context.drawImage(roomImg, (canvas.width / 2 - roomImg.width / 2), (canvas.height / 2 - roomImg.height / 2), 600, 600);
+            const ul = document.createElement("ul",);
+            for (i=0; i < 8; i++) {
+                ul.appendChild(document.createElement("li"));
+            }
+            // const btn = document.createElement("a");
+            // btn.innerText = "다운로드";
+            // btn.download = "sample.png";
+            // container.appendChild(ul);
+            // container.appendChild(btn);
+            // btn.addEventListener("click", ({target}) => {
+            //     download(target);
+            // });
         }
     });
-    document.addEventListener("DOMContentLoaded", () => {
-        display.drawImage(roomImg, (canvas.width / 2 - roomImg.width / 2), (canvas.height / 2 - roomImg.height / 2), 600, 600);
-    });
+}
+
+function download(target) {
+    target.href = canvas.toDataURL();
 }
 
 function clickedItemList(itemListWrap, categoryName) {
