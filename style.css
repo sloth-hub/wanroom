@@ -6,10 +6,17 @@
 body {
     background-color: #000;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 img {
     -webkit-user-drag: none;
+}
+
+li {
+    list-style: none;
 }
 
 .container {
@@ -34,7 +41,6 @@ img {
 }
 
 #display {
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,15 +65,16 @@ img {
 
 .item-tab {
     display: flex;
-    justify-content: space-between;
+    width: 100%;
     background-color: #ddd;
 }
 
 .item-tab li {
-    width: 100%;
-    height: 30px;
+    display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 30px;
     border: 1px solid #000;
     cursor: pointer;
 }
@@ -85,8 +92,7 @@ img {
     box-sizing: border-box;
     height: 300px;
     flex-wrap: wrap;
-    list-style: none;
-    background-color: #fff;
+    background-color: #ccc;
 }
 
 .list-item {
@@ -102,9 +108,7 @@ img {
     cursor: default;
 }
 
-.list-item .item-img {
-
-}
+.list-item .item-img {}
 
 .item {
     cursor: default;
