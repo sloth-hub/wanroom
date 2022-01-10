@@ -20,19 +20,28 @@ function init() {
     const roomImg = new Image;
     roomImg.src = "./images/room.png";
 
-    start.addEventListener("click", ({ target }) => {
+    start.addEventListener("click", async ({ target }) => {
         if (target.className === "start-btn") {
             container.removeChild(target);
-            console.log(canvas.width, canvas.height);
             context.drawImage(roomImg, (canvas.width / 2 - roomImg.width / 2), (canvas.height / 2 - roomImg.height / 2), 600, 600);
-            const ul = document.createElement("ul",);
-            for (i=0; i < 8; i++) {
-                ul.appendChild(document.createElement("li"));
+            const itemListWrap = document.createElement("div");
+            itemListWrap.className = "item-list-wrap";
+            container.appendChild(itemListWrap);
+            itemListWrap.innerHTML = `<ul class="item-tab"></ul>
+            <ul class="item-list"></ul>`;
+
+            const itemData = await axios.get("test.json")
+                .then(({ data }) => data)
+                .catch(error => console.log(error));
+            
+            const itemTab = document.querySelector(".item-tab");
+            const itemList = document.querySelector(".item-list");
+            for(let key in itemData) {
+                itemTab.innerHTML += `<li>${key}</li>`;
             }
             // const btn = document.createElement("a");
             // btn.innerText = "다운로드";
             // btn.download = "sample.png";
-            // container.appendChild(ul);
             // container.appendChild(btn);
             // btn.addEventListener("click", ({target}) => {
             //     download(target);
