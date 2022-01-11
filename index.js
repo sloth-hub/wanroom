@@ -23,22 +23,26 @@ function init() {
     start.addEventListener("click", async ({ target }) => {
         if (target.className === "start-btn") {
             container.removeChild(target);
-            context.drawImage(roomImg, (canvas.width / 2 - roomImg.width / 2), (canvas.height / 2 - roomImg.height / 2), 600, 600);
-            const itemListWrap = document.createElement("div");
-            itemListWrap.className = "item-list-wrap";
-            container.appendChild(itemListWrap);
-            itemListWrap.innerHTML = `<ul class="item-tab"></ul>
+            context.drawImage(roomImg, (canvas.width / 2 - roomImg.width / 2), (canvas.height / 2 - roomImg.height / 1.9), 600, 600);
+            const itemsWrap = document.createElement("div");
+            itemsWrap.className = "items-wrap";
+            container.appendChild(itemsWrap);
+            itemsWrap.innerHTML = `
+            <div class="tab-toggle">▼</div>
+            <ul class="item-tab"></ul>
             <ul class="item-list"></ul>`;
 
             const itemData = await axios.get("test.json")
                 .then(({ data }) => data)
                 .catch(error => console.log(error));
-            
+
             const itemTab = document.querySelector(".item-tab");
             const itemList = document.querySelector(".item-list");
-            for(let key in itemData) {
+            for (let key in itemData) {
                 itemTab.innerHTML += `<li>${key}</li>`;
             }
+            itemList.innerHTML = `<p class="item-list-msg">Click on the tabs!</p>`;
+            clickedTab(itemTab, itemList, itemData);
             // const btn = document.createElement("a");
             // btn.innerText = "다운로드";
             // btn.download = "sample.png";
@@ -50,27 +54,9 @@ function init() {
     });
 }
 
-function download(target) {
-    target.href = canvas.toDataURL();
-}
 
-function clickedItemList(itemListWrap, categoryName) {
-    itemListWrap.addEventListener("click", ({ target }) => {
-        if (categoryName === "background") {
-            display.style.backgroundColor = target.style.backgroundColor;
-        } else if (target.className === "item-img") {
-            let item = document.createElement("img");
-            item.classList.add("item");
-            item.src = target.src;
-            room.appendChild(item);
-        }
-    });
-}
-
-function onClickedTab(itemListWrap, itemData) {
-    const tabToggle = itemListWrap.querySelector(".tab-toggle");
-    const itemList = itemListWrap.querySelector(".item-list");
-    const itemTab = itemListWrap.querySelector(".item-tab");
+function clickedTab(itemTab, itemList, itemData) {
+    const tabToggle = document.querySelector(".tab-toggle");;
 
     tabToggle.addEventListener("click", () => {
         itemList.classList.toggle("hide");
@@ -83,15 +69,15 @@ function onClickedTab(itemListWrap, itemData) {
     });
 
     itemTab.addEventListener("click", ({ target }) => {
-        if (target.className === "item-tab category") {
-            let categoryName = target.innerText;
-            itemList.innerHTML = "";
-            itemData[categoryName].forEach((e) => {
-                let template = itemListTemp({ categoryName, category: e });
-                itemList.innerHTML += template;
-            });
-            clickedItemList(itemListWrap, categoryName);
-        }
+
+        let categoryName = target.innerText;
+        itemList.innerHTML = "";
+        itemData[categoryName].forEach((e) => {
+            let template = itemListTemp({ categoryName, category: e });
+            itemList.innerHTML += template;
+        });
+        clickedItemList(itemList, categoryName);
+
     });
 }
 
@@ -103,6 +89,26 @@ function itemListTemp(arguments) {
     } else {
         return `<li class="list-item ${arguments.categoryName}"><img class="item-img" src="${arguments.category.img}"></li>`;
     }
+}
+
+
+function download(target) {
+    target.href = canvas.toDataURL();
+}
+
+function clickedItemList(itemList, categoryName) {
+
+    itemList.addEventListener("click", ({ target }) => {
+        if (target.innerText === "background") {
+            console.log("");
+            // display.style.backgroundColor = target.style.backgroundColor;
+        } else if (target.className === "item-img") {
+            let item = document.createElement("img");
+            item.classList.add("item");
+            item.src = target.src;
+            room.appendChild(item);
+        }
+    });
 }
 
 function onClickedItem() {
