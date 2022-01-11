@@ -1,63 +1,89 @@
 {
     "background": [
         {
-            "colorName": "gray",
-            "colorCode": "#ccc"
-        },
-        {
             "colorName": "light red",
             "colorCode": "#e09d9d"
         },
         {
-            "colorName": "pink",
-            "colorCode": "#e09dc5"
+            "colorName": "light orange",
+            "colorCode": "#e0ba9d"
         },
         {
-            "colorName": "light blue",
-            "colorCode": "#9daee0"
+            "colorName": "light yellow",
+            "colorCode": "#e0d99d"
+        },
+        {
+            "colorName": "light lime",
+            "colorCode": "#c7e09d"
+        },
+        {
+            "colorName": "light green",
+            "colorCode": "#a1e09d"
+        },
+        {
+            "colorName": "light mint",
+            "colorCode": "#9de0d1"
         },
         {
             "colorName": "right skyblue",
             "colorCode": "#9dcce0"
         },
         {
+            "colorName": "light blue",
+            "colorCode": "#9daee0"
+        },
+        {
             "colorName": "light violet",
             "colorCode": "#c29de0"
+        },
+        {
+            "colorName": "light pink",
+            "colorCode": "#e09dc5"
+        },
+        {
+            "colorName": "light gray",
+            "colorCode": "#ddd"
         }
     ],
     "comfort": [
         {
             "name": "can",
+            "category": "comfort",
             "img": "/images/can.png"
         }
     ],
     "table": [
         {
             "name": "can",
+            "category": "comfort",
             "img": "/images/can.png"
         }
     ],
     "storage": [
         {
             "name": "can",
+            "category": "storage",
             "img": "/images/can.png"
         }
     ],
     "decorations": [
         {
             "name": "can",
+            "category": "decorations",
             "img": "/images/can.png"
         }
     ],
     "wall": [
         {
             "name": "can",
+            "category": "wall",
             "img": "/images/can.png"
         }
     ],
     "floor": [
         {
             "name": "can",
+            "category": "floor",
             "img": "/images/can.png"
         }
     ]
