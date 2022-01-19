@@ -9,7 +9,7 @@ let itemList;
 let itemData;
 let x = 0;
 let y = 0;
-let scale = 1;
+let SCALE = 1.5;
 
 init();
 
@@ -68,30 +68,36 @@ function menuInit(itemTab) {
 }
 
 function clickedMoveTab({ target }) {
-
-    if (target.innerText === "▲") {
-        y++;
-        display.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-    } else if (target.innerText === "▼") {
-        y--;
-        display.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-    } else if (target.innerText === "◀") {
-        x--;
-        display.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-    } else if (target.innerText === "▶") {
-        x++;
-        display.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-    } else if (target.innerText === "+") {
-        scale += 0.5;
-        display.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-    } else if (target.innerText === "-") {
-        scale -= 0.5;
-        display.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-    } else {
-        x = 0;
-        y = 0;
-        display.style.transform = "translate(0, 0) scale(1)";
+    if (target.nodeName === "BUTTON") {
+        if (target.id === "top-btn") {
+            moveToPosition(x, y-=50);
+        } else if (target.id === "bottom-btn") {
+            moveToPosition(x, y+=50);
+        } else if (target.id === "left-btn") {
+            moveToPosition(x -= 50, y);
+        } else if (target.id === "right-btn") {
+            moveToPosition(x += 50, y);
+        } else if (target.id === "zoomIn-btn") {
+            canvas.setZoom(canvas.getZoom() * SCALE);
+            canvas.setWidth(canvas.getWidth() * SCALE);
+            canvas.setHeight(canvas.getHeight() * SCALE);
+        } else if (target.id === "zoomOut-btn") {
+            if(canvas.getZoom() > 1) {
+                canvas.setZoom(canvas.getZoom() / SCALE);
+                canvas.setWidth(canvas.getWidth() / SCALE);
+                canvas.setHeight(canvas.getHeight() / SCALE);
+            }
+        } else {
+            canvas.absolutePan({ x: x=0, y: y=0 });
+            canvas.setZoom(1);
+            canvas.setWidth(768);
+            canvas.setHeight(container.offsetHeight);
+        }
     }
+}
+
+function moveToPosition(x, y) {
+    canvas.absolutePan({ x, y });
 }
 
 function tabToggle({ target }) {

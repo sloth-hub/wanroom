@@ -50,7 +50,7 @@ li {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    overflow: overlay;
+    overflow: hidden;
 }
 
 .start-btn {
@@ -74,8 +74,8 @@ li {
 
 .move-tab {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 10px;
 }
 
 .items-wrap {
