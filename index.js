@@ -9,7 +9,6 @@ let itemList;
 let itemData;
 let x = 0;
 let y = 0;
-let SCALE = 1.5;
 
 init();
 
@@ -68,30 +67,39 @@ function menuInit(itemTab) {
 }
 
 function clickedMoveTab({ target }) {
+    const SCALE = 1.5;
     if (target.nodeName === "BUTTON") {
-        if (target.id === "top-btn") {
-            moveToPosition(x, y-=50);
-        } else if (target.id === "bottom-btn") {
-            moveToPosition(x, y+=50);
-        } else if (target.id === "left-btn") {
-            moveToPosition(x -= 50, y);
-        } else if (target.id === "right-btn") {
-            moveToPosition(x += 50, y);
-        } else if (target.id === "zoomIn-btn") {
-            canvas.setZoom(canvas.getZoom() * SCALE);
-            canvas.setWidth(canvas.getWidth() * SCALE);
-            canvas.setHeight(canvas.getHeight() * SCALE);
-        } else if (target.id === "zoomOut-btn") {
-            if(canvas.getZoom() > 1) {
-                canvas.setZoom(canvas.getZoom() / SCALE);
-                canvas.setWidth(canvas.getWidth() / SCALE);
-                canvas.setHeight(canvas.getHeight() / SCALE);
-            }
-        } else {
-            canvas.absolutePan({ x: x=0, y: y=0 });
-            canvas.setZoom(1);
-            canvas.setWidth(768);
-            canvas.setHeight(container.offsetHeight);
+
+        switch (target.id) {
+            case "top-btn":
+                moveToPosition(x, y -= 50);
+                break;
+            case "bottom-btn":
+                moveToPosition(x, y += 50);
+                break;
+            case "left-btn":
+                moveToPosition(x -= 50, y);
+                break;
+            case "right-btn":
+                moveToPosition(x += 50, y);
+                break;
+            case "zoomIn-btn":
+                canvas.setZoom(canvas.getZoom() * SCALE);
+                canvas.setWidth(canvas.getWidth() * SCALE);
+                canvas.setHeight(canvas.getHeight() * SCALE);
+                break;
+            case "zoomOut-btn":
+                if (canvas.getZoom() > 1) {
+                    canvas.setZoom(canvas.getZoom() / SCALE);
+                    canvas.setWidth(canvas.getWidth() / SCALE);
+                    canvas.setHeight(canvas.getHeight() / SCALE);
+                }
+                break;
+            default:
+                canvas.absolutePan({ x: x = 0, y: y = 0 });
+                canvas.setZoom(1);
+                canvas.setWidth(768);
+                canvas.setHeight(container.offsetHeight);
         }
     }
 }
