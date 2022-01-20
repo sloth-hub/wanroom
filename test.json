@@ -75,16 +75,16 @@
     ],
     "wall": [
         {
-            "name": "can",
+            "name": "blue",
             "category": "wall",
-            "img": "/images/can.png"
+            "img": "/images/wall_blue.png"
         }
     ],
     "floor": [
         {
-            "name": "can",
+            "name": "pink",
             "category": "floor",
-            "img": "/images/can.png"
+            "img": "/images/floor_pink.png"
         }
     ]
 }

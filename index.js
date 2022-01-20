@@ -9,6 +9,7 @@ let itemList;
 let itemData;
 let x = 0;
 let y = 0;
+const SCALE = 1.5;
 
 init();
 
@@ -50,8 +51,8 @@ function init() {
             }
 
             canvas.setBackgroundImage("./images/room.png", canvas.renderAll.bind(canvas), {
-                left: (canvas.width / 2 - 600 / 2),
-                top: (canvas.height / 2 - 600 / 1.8)
+                left: Math.floor(canvas.width / 2 - 500 / 2),
+                top: Math.floor(canvas.height / 2 - 460 / 2)
             });
 
             menuInit(itemTab);
@@ -67,9 +68,7 @@ function menuInit(itemTab) {
 }
 
 function clickedMoveTab({ target }) {
-    const SCALE = 1.5;
     if (target.nodeName === "BUTTON") {
-
         switch (target.id) {
             case "top-btn":
                 moveToPosition(x, y -= 50);
@@ -137,13 +136,14 @@ function clickedTab({ target }) {
 function clickedList({ target }) {
     if (target.classList.contains("background")) {
         display.style.backgroundColor = target.style.backgroundColor;
-    } else if (target.className === "item-img") {
+    } else if (target.dataset.category === "wall" || target.dataset.category === "floor") {
+        // multiple background image 로 검색해서 방법 찾기
+    } else {
         fabric.Image.fromURL(target.src, (img) => {
-            img.set({
+            canvas.add(img.set({
                 left: Math.floor(768 / 2 - img.width / 2),
                 top: Math.floor(768 / 2 - img.height / 2),
-            });
-            canvas.add(img);
+            }));
         });
         fabric.Object.prototype.hasControls = false;
         fabric.Object.prototype.hasBorders = false;
@@ -159,7 +159,8 @@ function itemListTemp(arguments) {
         return `
         <li class="list-item ${arguments.categoryName}" style="background-color: ${arguments.category.colorCode}"></li>
         `;
-    } else {
-        return `<li class="list-item ${arguments.categoryName}"><img class="item-img" src="${arguments.category.img}"></li>`;
+    }
+    else {
+        return `<li class="list-item ${arguments.categoryName}"><img class="item-img" src="${arguments.category.img}" data-category="${arguments.category.category}"></li>`;
     }
 }

@@ -145,6 +145,16 @@ li {
     cursor: default;
 }
 
+.list-item.wall, .list-item.floor {
+    overflow: hidden;
+}
+.list-item.wall img {
+    transform: translateY(165px);
+}
+.list-item.floor img {
+    transform: translateY(-165px);
+}
+
 .hide {
     visibility: hidden;
 }
