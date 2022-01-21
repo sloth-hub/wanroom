@@ -138,15 +138,25 @@ function clickedList({ target }) {
         display.style.backgroundColor = target.style.backgroundColor;
     } else if (target.dataset.category === "wall" || target.dataset.category === "floor") {
         // multiple background image 로 검색해서 방법 찾기
+        fabric.Image.fromURL(target.src, (img) => {
+            canvas.add(img.set({
+                left: Math.floor(canvas.width / 2 - 500 / 2),
+                top: Math.floor(canvas.height / 2 - 460 / 2),
+                selectable: false,
+                evented: false,
+                hasControls: false
+            }));
+        });
+        
     } else {
         fabric.Image.fromURL(target.src, (img) => {
             canvas.add(img.set({
                 left: Math.floor(768 / 2 - img.width / 2),
                 top: Math.floor(768 / 2 - img.height / 2),
+                hasControls: false,
+                hasBorders: false
             }));
         });
-        fabric.Object.prototype.hasControls = false;
-        fabric.Object.prototype.hasBorders = false;
     }
 }
 
