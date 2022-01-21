@@ -146,6 +146,7 @@ function clickedList({ target }) {
                 evented: false,
                 hasControls: false
             }));
+            canvas.sendBackwards(img);
         });
         
     } else {
@@ -153,8 +154,7 @@ function clickedList({ target }) {
             canvas.add(img.set({
                 left: Math.floor(768 / 2 - img.width / 2),
                 top: Math.floor(768 / 2 - img.height / 2),
-                hasControls: false,
-                hasBorders: false
+                hasControls: false
             }));
         });
     }
