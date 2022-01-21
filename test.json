@@ -47,30 +47,30 @@
     ],
     "comfort": [
         {
-            "name": "can",
+            "name": "poster",
             "category": "comfort",
-            "img": "/images/can.png"
+            "img": "/images/deco_poster.png"
         }
     ],
     "table": [
         {
-            "name": "can",
+            "name": "poster",
             "category": "comfort",
-            "img": "/images/can.png"
+            "img": "/images/deco_poster.png"
         }
     ],
     "storage": [
         {
-            "name": "can",
+            "name": "poster",
             "category": "storage",
-            "img": "/images/can.png"
+            "img": "/images/deco_poster.png"
         }
     ],
     "decorations": [
         {
-            "name": "can",
+            "name": "poster",
             "category": "decorations",
-            "img": "/images/can.png"
+            "img": "/images/deco_poster.png"
         }
     ],
     "wall": [
