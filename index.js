@@ -34,7 +34,7 @@ function init() {
             <button id="zoomIn-btn">+</button>
             <button id="zoomOut-btn">-</button>
             <button id="middle-btn">■</button>
-            `;
+            <button id="flipX-btn">◀▶</button>`;
             itemsWrap.innerHTML = `
             <ul class="item-tab"></ul>
             <ul class="item-list"></ul>`;
@@ -54,7 +54,6 @@ function init() {
                 left: Math.floor(canvas.width / 2 - 500 / 2),
                 top: Math.floor(canvas.height / 2 - 460 / 2)
             });
-
             menuInit(itemTab);
         }
     });
@@ -94,11 +93,18 @@ function clickedMoveTab({ target }) {
                     canvas.setHeight(canvas.getHeight() / SCALE);
                 }
                 break;
-            default:
+            case "flipX-btn":
+                let selectedItem = canvas.getActiveObjects()[0];
+                if(selectedItem) {
+                    selectedItem.toggle("flipX");
+                }
+                break;
+            case "middle-btn":
                 canvas.absolutePan({ x: x = 0, y: y = 0 });
                 canvas.setZoom(1);
                 canvas.setWidth(768);
                 canvas.setHeight(container.offsetHeight);
+                break;
         }
     }
 }
@@ -148,7 +154,7 @@ function clickedList({ target }) {
             }));
             canvas.sendBackwards(img);
         });
-        
+
     } else {
         fabric.Image.fromURL(target.src, (img) => {
             canvas.add(img.set({

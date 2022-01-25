@@ -75,16 +75,26 @@
     ],
     "wall": [
         {
+            "name": "marble ivory",
+            "category": "wall",
+            "img": "/images/wall_marble_ivory.png"
+        },
+        {
             "name": "blue",
             "category": "wall",
-            "img": "/images/wall_blue.png"
+            "img": "/images/wall_solid_blue.png"
         }
     ],
     "floor": [
         {
-            "name": "pink",
+            "name": "navy",
             "category": "floor",
-            "img": "/images/floor_pink.png"
+            "img": "/images/floor_navy.png"
+        },
+        {
+            "name": "skyblue",
+            "category": "floor",
+            "img": "/images/floor_skyblue.png"
         }
     ]
 }
