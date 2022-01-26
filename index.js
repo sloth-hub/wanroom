@@ -41,7 +41,7 @@ function init() {
             <ul class="item-tab"></ul>
             <ul class="item-list"></ul>`;
 
-            itemData = await axios.get("items.json")
+            itemData = await axios.get("item.json")
                 .then(({ data }) => data)
                 .catch(error => console.log(error));
             itemTab = document.querySelector(".item-tab");
