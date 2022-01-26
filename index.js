@@ -7,6 +7,7 @@ let moveTab = document.createElement("div");
 let toggleTab = document.createElement("div");
 let itemList;
 let itemData;
+let selectedItem;
 let x = 0;
 let y = 0;
 const SCALE = 1.5;
@@ -35,8 +36,9 @@ function init() {
             <button id="zoomOut-btn">-</button>
             <button id="middle-btn">■</button>
             <button id="flipX-btn">◀▶</button>
+            <button id="remove-btn">remove</button>
             <button id="reset-btn">reset</button>
-            <button id="done-btn">done</button>`;
+            <button id="finish-btn">finish</button>`;
             itemsWrap.innerHTML = `
             <ul class="item-tab"></ul>
             <ul class="item-list"></ul>`;
@@ -95,17 +97,23 @@ function clickedMoveTab({ target }) {
                     canvas.setHeight(canvas.getHeight() / SCALE);
                 }
                 break;
-            case "flipX-btn":
-                let selectedItem = canvas.getActiveObjects()[0];
-                if (selectedItem) {
-                    selectedItem.toggle("flipX");
-                }
-                break;
             case "middle-btn":
                 canvas.absolutePan({ x: x = 0, y: y = 0 });
                 canvas.setZoom(1);
                 canvas.setWidth(768);
                 canvas.setHeight(container.offsetHeight);
+                break;
+            case "flipX-btn":
+                selectedItem = canvas.getActiveObjects()[0];
+                if (selectedItem) {
+                    selectedItem.toggle("flipX");
+                }
+                break;
+            case "remove-btn":
+                selectedItem = canvas.getActiveObjects()[0];
+                if (selectedItem) {
+                    canvas.remove(selectedItem);
+                }
                 break;
             case "reset-btn":
                 canvas.remove(...canvas.getObjects());
