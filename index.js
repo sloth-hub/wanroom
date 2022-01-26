@@ -34,12 +34,14 @@ function init() {
             <button id="zoomIn-btn">+</button>
             <button id="zoomOut-btn">-</button>
             <button id="middle-btn">■</button>
-            <button id="flipX-btn">◀▶</button>`;
+            <button id="flipX-btn">◀▶</button>
+            <button id="reset-btn">reset</button>
+            <button id="done-btn">done</button>`;
             itemsWrap.innerHTML = `
             <ul class="item-tab"></ul>
             <ul class="item-list"></ul>`;
 
-            itemData = await axios.get("test.json")
+            itemData = await axios.get("items.json")
                 .then(({ data }) => data)
                 .catch(error => console.log(error));
             itemTab = document.querySelector(".item-tab");
@@ -95,7 +97,7 @@ function clickedMoveTab({ target }) {
                 break;
             case "flipX-btn":
                 let selectedItem = canvas.getActiveObjects()[0];
-                if(selectedItem) {
+                if (selectedItem) {
                     selectedItem.toggle("flipX");
                 }
                 break;
@@ -105,6 +107,13 @@ function clickedMoveTab({ target }) {
                 canvas.setWidth(768);
                 canvas.setHeight(container.offsetHeight);
                 break;
+            case "reset-btn":
+                canvas.remove(...canvas.getObjects());
+                break;
+            default:
+                moveTab.remove();
+                itemsWrap.remove();
+                toggleTab.remove();
         }
     }
 }
@@ -142,19 +151,10 @@ function clickedTab({ target }) {
 function clickedList({ target }) {
     if (target.classList.contains("background")) {
         display.style.backgroundColor = target.style.backgroundColor;
-    } else if (target.dataset.category === "wall" || target.dataset.category === "floor") {
-        // multiple background image 로 검색해서 방법 찾기
-        fabric.Image.fromURL(target.src, (img) => {
-            canvas.add(img.set({
-                left: Math.floor(canvas.width / 2 - 500 / 2),
-                top: Math.floor(canvas.height / 2 - 460 / 2),
-                selectable: false,
-                evented: false,
-                hasControls: false
-            }));
-            canvas.sendBackwards(img);
-        });
-
+    } else if (target.dataset.category === "wall") {
+        sendBack(target);
+    } else if (target.dataset.category === "floor") {
+        sendBack(target);
     } else {
         fabric.Image.fromURL(target.src, (img) => {
             canvas.add(img.set({
@@ -164,6 +164,25 @@ function clickedList({ target }) {
             }));
         });
     }
+}
+
+function sendBack(target) {
+    canvas.getObjects().forEach((e) => {
+        if (e.category === target.dataset.category) {
+            canvas.remove(e);
+        }
+    });
+    fabric.Image.fromURL(target.src, (img) => {
+        img.set({
+            left: Math.floor(canvas.width / 2 - 500 / 2),
+            top: Math.floor(canvas.height / 2 - 460 / 2),
+            selectable: false,
+            evented: false,
+            hasControls: false,
+            "category": target.dataset.category
+        });
+        canvas.sendToBack(img);
+    });
 }
 
 function download(target) {
